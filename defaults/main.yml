@@ -1,0 +1,5 @@
+---
+# defaults file for role
+
+default_resolvfile:
+  forwarder: 8.8.8.8

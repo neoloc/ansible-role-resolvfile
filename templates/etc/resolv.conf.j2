@@ -1,0 +1,13 @@
+# {{ ansible_managed }}
+# Do not change file directly, changes will be overwritten.
+#
+{% if resolvfile.searchdomain is defined %}
+search {{ resolvfile.searchdomain }}
+{% endif %}
+{% if resolvfile.forwarders is defined %}
+{% for item in resolvfile.forwarders %}
+nameserver {{ item }}
+{%endfor%}
+{% else %}
+nameserver {{ default_resolvfile.forwarder }}
+{% endif %}

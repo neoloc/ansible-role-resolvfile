@@ -1,0 +1,26 @@
+---
+# tasks file for role
+#
+
+- name: Check if /etc/resolv.conf is a symlink
+  ansible.builtin.stat:
+    path: /etc/resolv.conf
+  register: resolv_link
+  tags: [ resolvfile ]
+
+- name: Remove /etc/resolv.conf symlink
+  ansible.builtin.file:
+    name: /etc/resolv.conf
+    state: absent
+  when: resolv_link.stat.islnk is defined and resolv_link.stat.islnk
+  register: resolv_link_removed
+  tags: [ resolvfile ]
+
+- name: Deploy /etc/resolv.conf file from template
+  ansible.builtin.template:
+    src: templates/etc/resolv.conf.j2
+    dest: /etc/resolv.conf
+    owner: root
+    group: root
+    mode: '644'
+  tags: [ resolvfile ]
