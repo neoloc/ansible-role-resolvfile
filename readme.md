@@ -1,4 +1,4 @@
-Base Role
+Resolvfile Role
 =========
 
 This roles purpose is to configure the `/etc/resolv.conf` file.
